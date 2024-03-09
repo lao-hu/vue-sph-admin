@@ -11,7 +11,7 @@ export default {
     // 初始化echarts实列
     const mychart = echarts.init(this.$refs.charts)
     
-      // 使用刚指定的配置项和数据显示图表。
+    // 使用刚指定的配置项和数据显示图表。
     mychart.setOption({
       xAxis: {
         // 是否显示X轴
@@ -68,7 +68,7 @@ export default {
         bottom: 0
       },
       // 提升组件
-      tooltip:{}
+      tooltip: {}
     })
   }
 }

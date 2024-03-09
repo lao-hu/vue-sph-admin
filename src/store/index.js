@@ -8,7 +8,7 @@ import app from './modules/app'
 import settings from './modules/settings'
 import user from './modules/user'
 
-import home from './modules/home';
+import home from './modules/home'
 // 安装Vuex
 Vue.use(Vuex)
 

@@ -11,6 +11,8 @@ const getters = {
   // 用户头像
   avatar: state => state.user.avatar,
   // 用户名称
-  name: state => state.user.name
+  name: state => state.user.name,
+  
+  roles:state => state.user.roles
 }
 export default getters

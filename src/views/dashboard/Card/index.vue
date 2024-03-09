@@ -44,7 +44,7 @@
         <el-card>
           <Detail title="运营活动效果" count="78%">
             <template v-slot:charts>
-              <ProgressChart/>
+              <ProgressChart />
             </template>
             <template v-slot:footer>
               <div class="sales" style=" width: 70%;">
@@ -63,7 +63,7 @@
 import Detail from './Detail'
 import LineChart from './LineChart'
 import BarChart from './BarChart'
-import ProgressChart from './ProgressChart';
+import ProgressChart from './ProgressChart'
 export default {
   name: 'Card',
   components: {

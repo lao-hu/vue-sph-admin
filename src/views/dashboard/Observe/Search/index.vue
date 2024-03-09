@@ -5,7 +5,7 @@
       <span>
         <el-dropdown placement="bottom">
           <span class="el-dropdown-link">
-            <i class="el-icon-more"></i>
+            <i class="el-icon-more" />
           </span>
 
           <el-dropdown-menu slot="dropdown">
@@ -21,10 +21,10 @@
     <div>
       <el-row :gutter="16">
         <el-col :span="12">
-          <LineCharts></LineCharts>
+          <LineCharts />
         </el-col>
         <el-col :span="12">
-          <LineCharts></LineCharts>
+          <LineCharts />
         </el-col>
       </el-row>
       <!-- 
@@ -34,40 +34,36 @@
        -->
       <div class="tableInfo">
         <el-table :data="tableInfo" style="width: 100%" border>
-          <el-table-column type="index" align="center" prop="prop" label="排名" width="80">
-          </el-table-column>
-          <el-table-column  label="搜索关键词" align="center"  width="180">
-          </el-table-column>
-          <el-table-column  label="用户数" align="center" sortable width="180">
-          </el-table-column>
-          <el-table-column  label="周涨幅" align="center" sortable >
-          </el-table-column>
+          <el-table-column type="index" align="center" prop="prop" label="排名" width="80" />
+          <el-table-column label="搜索关键词" align="center" width="180" />
+          <el-table-column label="用户数" align="center" sortable width="180" />
+          <el-table-column label="周涨幅" align="center" sortable />
         </el-table>
       </div>
-        <!-- 分页器  -->
-      <div class="pagination" >
+      <!-- 分页器  -->
+      <div class="pagination">
         <el-pagination
-            layout="prev, pager, next"
-            :total="1000">
-        </el-pagination>
+          layout="prev, pager, next"
+          :total="1000"
+        />
       </div>
     </div>
   </el-card>
 </template>
 
 <script>
-import LineCharts from "./LineCharts";
+import LineCharts from './LineCharts'
 export default {
-  name: "Search",
-  data(){
-    return {
-        tableInfo:[{}]
-    }
-  },
+  name: 'Search',
   components: {
-    LineCharts,
+    LineCharts
   },
-};
+  data() {
+    return {
+      tableInfo: [{}]
+    }
+  }
+}
 </script>
 
 <style scoped>

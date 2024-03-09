@@ -60,17 +60,17 @@ export const constantRoutes = [
   {
     // 权限管理
     path: '/acl',
-    name:'acl',
-    component:Layout,
-    meta:{
-      title:"权限管理",
-      icon:'el-icon-lock'
+    name: 'acl',
+    component: Layout,
+    meta: {
+      title: '权限管理',
+      icon: 'el-icon-lock'
     },
     // 子路由
-    children:[
+    children: [
       { 
         // 用户管理
-        path: '/user',
+        path: 'user',
         // 路由懒加载
         component: () => import('@/views/acl/user'),
         name: 'user',
@@ -80,8 +80,8 @@ export const constantRoutes = [
         }
       },
       { 
-        // 用户管理
-        path: '/role',
+        // 角色管理
+        path: 'role',
         // 路由懒加载
         component: () => import('@/views/acl/role'),
         name: 'role',
@@ -90,9 +90,21 @@ export const constantRoutes = [
           icon: 'el-icon-folder'
         }
       },
+      { 
+        name: 'roleAuth',
+        // 角色管理
+        path: 'role/auth/:id',
+        // 路由懒加载
+        component: () => import('@/views/acl/role/auth'),
+        meta: {
+          activeMenu: '/acl/role',
+          title: '角色授权'
+        },
+        hidden: true  
+      },
       {
-        // 用户管理
-        path: '/premission',
+        // 菜单管理
+        path: 'premission',
         // 路由懒加载
         component: () => import('@/views/acl/premission'),
         name: 'premission',
@@ -116,7 +128,7 @@ export const constantRoutes = [
     children: [
       { 
         // 品牌管理
-        path: '/trademake',
+        path: 'trademake',
         // 路由懒加载
         component: () => import('@/views/product/trademake'),
         name: 'TradeMake',
@@ -127,7 +139,7 @@ export const constantRoutes = [
       },
       {
         // 平台属性管理
-        path: '/attr',
+        path: 'attr',
         // 路由懒加载
         component: () => import('@/views/product/attr'),
         name: 'Attr',
@@ -138,7 +150,7 @@ export const constantRoutes = [
       },
       {
         // spu
-        path: '/spu',
+        path: 'spu',
         // 路由懒加载
         component: () => import('@/views/product/spu'),
         name: 'Spu',
@@ -149,7 +161,7 @@ export const constantRoutes = [
       },
       {
         // sku
-        path: '/sku',
+        path: 'sku',
         // 路由懒加载
         component: () => import('@/views/product/sku'),
         name: 'Sku',

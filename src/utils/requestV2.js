@@ -42,7 +42,7 @@ service.interceptors.response.use(
     // 如果自定义代码不是200，则判断为错误。
     // 有些 接口 状态码是 200 或者是 20000
     if (res.code !== 20000 && res.code !== 200) {
-      console.log(res);
+      console.log(res)
       Message({
         message: res.message || 'Error',
         type: 'error',
@@ -71,19 +71,19 @@ service.interceptors.response.use(
     // console.log('err' + error) // for debug
     if (error.response) {
       // 请求成功发出且服务器也响应了状态码，但状态代码超出了 2xx 的范围
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
+      console.log(error.response.data)
+      console.log(error.response.status)
+      console.log(error.response.headers)
     } else if (error.request) {
       // 请求已经成功发起，但没有收到响应
       // `error.request` 在浏览器中是 XMLHttpRequest 的实例，
       // 而在node.js中是 http.ClientRequest 的实例
-      console.log(error.request);
+      console.log(error.request)
     } else {
       // 发送请求时出了点问题
-      console.log('Error', error.message);
+      console.log('Error', error.message)
     }
-    console.log(error.config);
+    console.log(error.config)
     
     Message({
       message: error.message,

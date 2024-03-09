@@ -1,12 +1,24 @@
+// 引入登录|退出登录|获取用户信息的接口函数
 import { login, logout, getInfo } from '@/api/user'
+// 获取token|设置token|删除token的函数
 import { getToken, setToken, removeToken } from '@/utils/auth'
+// 路由模块当中重置路由的方法
 import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
+    //获取token
     token: getToken(),
+    //存储用户名
     name: '',
-    avatar: ''
+    //存储用户头像
+    avatar: '',
+    //服务器返回的菜单信息【根据不同的角色：返回的标记信息，数组里面的元素是字符串】
+    routes: [],
+    //角色信息
+    roles: [],
+    //按钮权限的信息
+    buttons: [],
   }
 }
 
@@ -24,7 +36,20 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
-  }
+  },
+  //存储用户信息
+  SET_USERINFO: (state, userInfo) => {
+    //用户名
+    state.name = userInfo.name;
+    //用户头像
+    state.avatar = userInfo.avatar;
+    //菜单权限标记
+    state.routes = userInfo.routes;
+    //按钮权限标记
+    state.buttons = userInfo.buttons;
+    //角色
+    state.roles = userInfo.roles;
+  },
 }
 
 const actions = {
@@ -49,6 +74,7 @@ const actions = {
     const result = await getInfo(state.token)
     // 有些服务器状态码是200 或20000 
     if (result.code === 200 || result.code === 20000) {
+     
       const { data } = result
 
       if (!data) {
@@ -59,6 +85,7 @@ const actions = {
 
       commit('SET_NAME', name)
       commit('SET_AVATAR', avatar)
+      commit('SET_USERINFO', data)
     } else {
       return Promise.reject(new Error('faile'))
     }

@@ -206,7 +206,7 @@ export default {
       // 深拷贝 注意：这里也可以使用： JSON.parse(JSON.stringify(row))
       // 现在使用的 lodash的cloneDeep方法
       this.attrInfo = cloneDeep(row)
-
+      // console.log(this.attrInfo)
       // flag 属性用于切换编辑模式与查看模式
       this.attrInfo.attrValueList.forEach(element => {
         // 给数组添加一个 响应式 flag 属性

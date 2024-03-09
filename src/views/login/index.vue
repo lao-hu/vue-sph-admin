@@ -63,18 +63,10 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
-      } else {
-        callback()
-      }
-    }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 5) {
         callback(new Error('密码不能少于5位'))
@@ -88,7 +80,10 @@ export default {
         password: '111111'
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        username: [
+            { required: true, message: '请输入用户名称',trigger: 'blur'},
+            {min:4,message:"用户名称不能少于4个字符",trigger:blur}
+          ],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
       },
       loading: false,
@@ -129,6 +124,7 @@ export default {
             // 关闭按钮的加载效果
             this.loading = false
           } catch (error) {
+             // 关闭按钮的加载效果
             this.loading = false
           }
         } else {

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Card></Card>
-    <Sale></Sale>
-    <Observe></Observe>
+    <Card />
+    <Sale />
+    <Observe />
   </div>
 </template>
 
@@ -17,9 +17,9 @@ export default {
     Sale,
     Observe
   },
-  mounted(){
+  mounted() {
     // 排放 action
-    this.$store.dispatch("home/getData")
+    this.$store.dispatch('home/getData')
   }
 }
 </script>

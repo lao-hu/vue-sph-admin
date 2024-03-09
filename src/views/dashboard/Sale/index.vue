@@ -5,9 +5,9 @@
         <!-- 
                  @tab-click="handleClick"
              -->
-        <el-tabs class="tab" v-model="activeName">
-          <el-tab-pane label="销售额" name="销售额"></el-tab-pane>
-          <el-tab-pane label="访问量" name="访问量"></el-tab-pane>
+        <el-tabs v-model="activeName" class="tab">
+          <el-tab-pane label="销售额" name="销售额" />
+          <el-tab-pane label="访问量" name="访问量" />
         </el-tabs>
 
         <div class="right">
@@ -19,23 +19,22 @@
              
          -->
           <el-date-picker
-            class="date"
             v-model="date"
+            class="date"
             type="daterange"
             range-separator="-"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             size="small"
             value-format="yyyy-MM-dd"
-          >
-          </el-date-picker>
+          />
         </div>
       </div>
       <div>
         <el-row :gutter="10">
           <el-col :span="18">
             <!-- 容器 -->
-            <div class="charts" ref="charts"></div>
+            <div ref="charts" class="charts" />
           </el-col>
           <el-col :span="6" class="sorts">
             <h3>门店{{ activeName }}排名</h3>
@@ -85,71 +84,25 @@
 
 <script>
 // 引入 echarts 图表库
-import * as echarts from "echarts";
+import * as echarts from 'echarts'
 // 引入dayjs 时间库
-import dayjs from "dayjs";
+import dayjs from 'dayjs'
 // 引入辅助函数
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  name: "Sale",
+  name: 'Sale',
   data() {
     return {
       // 标签切换
-      activeName: "销售额",
+      activeName: '销售额',
       // echarts 实例 挂载到 组件上
       mychart: null,
-      date: [],
-    };
+      date: []
+    }
   },
   computed: {
-    ...mapState("home", ["list"]),
-  },
-  methods: {
-    setDate(data) {
-      switch (data) {
-        case "今日":
-          // 获取今日时间
-          this.date = [
-            dayjs().format("YYYY-MM-DD"),
-            dayjs().format("YYYY-MM-DD"),
-          ];
-          break;
-        case "本周":
-          // 星期一到星期天 为 一周
-
-          this.date = [
-            // 获取星期一 day是周几
-            dayjs().day(1).format("YYYY-MM-DD"),
-            // 获取星期天 day是周几
-            dayjs().day(7).format("YYYY-MM-DD"),
-          ];
-          break;
-        case "本月":
-          this.date = [
-            // startOf 时间的开始 ，month是月份
-            dayjs().startOf("month").format("YYYY-MM-DD"),
-
-            // endOf 时间的结束 ，month是月份
-            dayjs().endOf("month").format("YYYY-MM-DD"),
-          ];
-
-          break;
-        case "本年":
-          this.date = [
-            // startOf 时间的开始 ，year是年份
-            dayjs().startOf("year").format("YYYY-MM-DD"),
-
-            // endOf 时间的结束 ，year是年份
-            dayjs().endOf("year").format("YYYY-MM-DD"),
-          ];
-          break;
-      }
-    },
-  },
-  mounted() {
-    // 初始化echarts实列
-    this.mychart = echarts.init(this.$refs.charts);
+    ...mapState('home', ['list'])
   },
   // 监听
   watch: {
@@ -158,71 +111,117 @@ export default {
       // 如果有新属性的值，会替换老属性的值
       this.mychart.setOption({
         title: {
-          text: `${this.activeName}趋势`,
+          text: `${this.activeName}趋势`
         },
         xAxis: {
           data:
-            this.activeName == "销售额"
+            this.activeName == '销售额'
               ? this.list.orderFullYearAxis
-              : this.list.userFullYearAxis,
+              : this.list.userFullYearAxis
         },
         series: {
           data:
-            this.activeName == "销售额"
+            this.activeName == '销售额'
               ? this.list.orderFullYear
-              : this.list.userFullYear,
-        },
-      });
+              : this.list.userFullYear
+        }
+      })
     },
     // 监听服务器的数据变化
     list() {
-        // 使用刚指定的配置项和数据显示图表。
+      // 使用刚指定的配置项和数据显示图表。
       this.mychart.setOption({
         title: {
-          text: `${this.activeName}趋势`,
+          text: `${this.activeName}趋势`
         },
         // 提示组件
         tooltip: {
           // 坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。
-          trigger: "axis",
+          trigger: 'axis',
           // 坐标轴指示器配置项
           axisPointer: {
             // 阴影指示器
-            type: "shadow",
-          },
+            type: 'shadow'
+          }
         },
         grid: {
-          left: "3%",
-          right: "4%",
-          bottom: "3%",
-          containLabel: true,
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
         },
         xAxis: [
           {
-            type: "category",
+            type: 'category',
             data: this.list.orderFullYearAxis,
             axisTick: {
-              alignWithLabel: true,
-            },
-          },
+              alignWithLabel: true
+            }
+          }
         ],
         yAxis: [
           {
-            type: "value",
-          },
+            type: 'value'
+          }
         ],
         series: [
           {
-            name: "Direct",
-            type: "bar",
-            barWidth: "60%",
-            data: this.list.orderFullYear,
-          },
-        ],
-      });
-    },
+            name: 'Direct',
+            type: 'bar',
+            barWidth: '60%',
+            data: this.list.orderFullYear
+          }
+        ]
+      })
+    }
   },
-};
+  mounted() {
+    // 初始化echarts实列
+    this.mychart = echarts.init(this.$refs.charts)
+  },
+  methods: {
+    setDate(data) {
+      switch (data) {
+        case '今日':
+          // 获取今日时间
+          this.date = [
+            dayjs().format('YYYY-MM-DD'),
+            dayjs().format('YYYY-MM-DD')
+          ]
+          break
+        case '本周':
+          // 星期一到星期天 为 一周
+
+          this.date = [
+            // 获取星期一 day是周几
+            dayjs().day(1).format('YYYY-MM-DD'),
+            // 获取星期天 day是周几
+            dayjs().day(7).format('YYYY-MM-DD')
+          ]
+          break
+        case '本月':
+          this.date = [
+            // startOf 时间的开始 ，month是月份
+            dayjs().startOf('month').format('YYYY-MM-DD'),
+
+            // endOf 时间的结束 ，month是月份
+            dayjs().endOf('month').format('YYYY-MM-DD')
+          ]
+
+          break
+        case '本年':
+          this.date = [
+            // startOf 时间的开始 ，year是年份
+            dayjs().startOf('year').format('YYYY-MM-DD'),
+
+            // endOf 时间的结束 ，year是年份
+            dayjs().endOf('year').format('YYYY-MM-DD')
+          ]
+          break
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>

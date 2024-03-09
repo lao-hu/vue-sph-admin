@@ -27,34 +27,33 @@
             d="M499.512194 318.439025C499.512194 332.232672 510.694157 343.414635 524.487806 343.414635 538.281453 343.414635 549.463415 332.232672 549.463415 318.439025L549.463415 274.731708C549.463415 260.938059 538.281453 249.756098 524.487806 249.756098 510.694157 249.756098 499.512194 260.938059 499.512194 274.731708L499.512194 318.439025Z"
             fill="#999999"
             p-id="1824"
-          /></svg
-      ></span>
+          /></svg></span>
     </div>
     <div class="main">
       <span class="main-title">12321</span>
       <span style="margin-right: 10px">17.17 </span>
-      <span><i class="el-icon-caret-bottom"></i></span>
+      <span><i class="el-icon-caret-bottom" /></span>
     </div>
     <div class="footer">
       <!-- 容器 -->
-      <div class="charts" ref="charts"></div>
+      <div ref="charts" class="charts" />
       
     </div>
   </div>
 </template>
 
 <script>
-import * as echarts from "echarts";
+import * as echarts from 'echarts'
 export default {
-  name: "LineCharts",
+  name: 'LineCharts',
   data() {
     return {
-      mychart: null,
-    };
+      mychart: null
+    }
   },
   mounted() {
     // 初始化echarts实列
-    const mychart = echarts.init(this.$refs.charts);
+    const mychart = echarts.init(this.$refs.charts)
 
     // 使用刚指定的配置项和数据显示图表。
     mychart.setOption({
@@ -62,20 +61,20 @@ export default {
         // 是否显示X轴
         show: false,
         // 坐标轴类型。
-        type: "category",
+        type: 'category'
       },
       yAxis: {
         // 是否显示X轴
-        show: false,
+        show: false
       },
       series: [
         {
-          type: "line",
+          type: 'line',
           data: [175, 145, 167, 187, 135, 145, 162, 149, 105, 147],
           // 填充颜色设置
           areaStyle: {
             color: {
-              type: "linear",
+              type: 'linear',
               x: 0,
               y: 0,
               x2: 0,
@@ -83,40 +82,40 @@ export default {
               colorStops: [
                 {
                   offset: 0,
-                  color: "#4967c5", // 0% 处的颜色
+                  color: '#4967c5' // 0% 处的颜色
                 },
                 {
                   offset: 1,
-                  color: "#fff", // 100% 处的颜色
-                },
+                  color: '#fff' // 100% 处的颜色
+                }
               ],
-              global: false, // 缺省为 false
-            },
+              global: false // 缺省为 false
+            }
           },
           // 是否平滑曲线显示。
           smooth: false,
           // 拐点的样式设计
           itemStyle: {
-            opacity: 0,
+            opacity: 0
           },
           // 线条颜色
           lineStyle: {
-            color: "#4967c5",
-          },
-        },
+            color: '#4967c5'
+          }
+        }
       ],
       // 布局
       grid: {
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
+        bottom: 0
       },
       // 提升组件
-      tooltip: {},
-    });
-  },
-};
+      tooltip: {}
+    })
+  }
+}
 </script>
 
 <style scoped>
