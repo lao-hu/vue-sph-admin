@@ -120,7 +120,8 @@ export default {
             this.loading = true
             await this.$store.dispatch('user/login', this.loginForm)
             // 登录成功后的跳转    
-            this.$router.push({ path: this.redirect || '/' })
+          //  this.$router.push({ path: this.redirect || '/' })
+          this.$router.push({ path: '/' })
             // 关闭按钮的加载效果
             this.loading = false
           } catch (error) {

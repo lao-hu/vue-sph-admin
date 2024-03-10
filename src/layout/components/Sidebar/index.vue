@@ -11,7 +11,8 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
-      >
+      > 
+      <!-- 左侧菜单 -->
         <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
     </el-scrollbar>
@@ -31,7 +32,8 @@ export default {
       'sidebar'
     ]),
     routes() {
-      return this.$router.options.routes
+      // 遍历vuex里面已经计算好的全部路由       
+      return this.$store.state.user.resultAllRoutes
     },
     activeMenu() {
       const route = this.$route

@@ -63,6 +63,11 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
+ 
+]
+
+//  异步路由：需要对不同的角色，进行筛选区分的路由
+export const asyncRoutes = [
   {
     // 权限管理
     path: '/acl',
@@ -114,125 +119,6 @@ export const constantRoutes = [
         // 路由懒加载
         component: () => import('@/views/acl/permission'),
         name: 'Permission',
-        meta: {
-          title: '菜单管理',
-          icon: 'el-icon-folder'
-        }
-      }
-    ]
-  },
-  {
-    // 商品管理
-    path: '/product',
-    component: Layout,
-    name: 'Product',
-    meta: {
-      title: '商品管理',
-      icon: 'el-icon-s-goods'
-    },
-    // 子路由
-    children: [
-      { 
-        // 品牌管理
-        path: 'trademake',
-        // 路由懒加载
-        component: () => import('@/views/product/trademake'),
-        name: 'TradeMake',
-        meta: {
-          title: '品牌管理',
-          icon: 'el-icon-folder'
-        }
-      },
-      {
-        // 平台属性管理
-        path: 'attr',
-        // 路由懒加载
-        component: () => import('@/views/product/attr'),
-        name: 'Attr',
-        meta: {
-          title: '平台属性管理',
-          icon: 'el-icon-folder'
-        }
-      },
-      {
-        // spu
-        path: 'spu',
-        // 路由懒加载
-        component: () => import('@/views/product/spu'),
-        name: 'Spu',
-        meta: {
-          title: 'spu管理',
-          icon: 'el-icon-folder'
-        }
-      },
-      {
-        // sku
-        path: 'sku',
-        // 路由懒加载
-        component: () => import('@/views/product/sku'),
-        name: 'Sku',
-        meta: {
-          title: 'sku管理',
-          icon: 'el-icon-folder'
-        }
-      }
-    ]
-  },
-]
-
-//  异步路由：需要对不同的角色，进行筛选区分的路由
-export const asyncRoutes = [
-  {
-    // 权限管理
-    path: '/acl',
-    name: 'Acl',
-    component: Layout,
-    meta: {
-      title: '权限管理',
-      icon: 'el-icon-lock'
-    },
-    // 子路由
-    children: [
-      { 
-        // 用户管理
-        path: 'user',
-        // 路由懒加载
-        component: () => import('@/views/acl/user'),
-        name: 'User',
-        meta: {
-          title: '用户管理',
-          icon: 'el-icon-folder'
-        }
-      },
-      { 
-        // 角色管理
-        path: 'role',
-        // 路由懒加载
-        component: () => import('@/views/acl/role'),
-        name: 'Role',
-        meta: {
-          title: '角色管理',
-          icon: 'el-icon-folder'
-        }
-      },
-      { 
-        name: 'roleAuth',
-        // 角色管理
-        path: 'role/auth/:id',
-        // 路由懒加载
-        component: () => import('@/views/acl/role/auth'),
-        meta: {
-          activeMenu: '/acl/role',
-          title: '角色授权'
-        },
-        hidden: true  
-      },
-      {
-        // 菜单管理
-        path: 'premission',
-        // 路由懒加载
-        component: () => import('@/views/acl/premission'),
-        name: 'premission',
         meta: {
           title: '菜单管理',
           icon: 'el-icon-folder'

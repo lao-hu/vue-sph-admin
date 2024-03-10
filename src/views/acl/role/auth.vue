@@ -85,10 +85,14 @@ export default {
     }
     */
    async save(){
-      this.loading = true
-      // 获取当前选中的权限
-      var ids = this.$refs.tree.getCheckedKeys()
+     this.loading = true
+      // 获取当前选中的权限 .concat(this.$refs.tree.getHalfCheckedKeys())
+        // 返回目前半选中的节点的 key 所组成的数组
+       
+     var ids = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())
+
       var id =  this.$route.params.id
+
       let result = await this.$api.permission.reqPreDoAssignAcl({
          permissionIdList:ids,
          roleId:id
@@ -103,7 +107,7 @@ export default {
           this.$router.replace('/acl/role')
       }
 
-    }
+     }
   }
 }
 </script>

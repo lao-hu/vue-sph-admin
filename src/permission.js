@@ -34,8 +34,8 @@ router.beforeEach(async(to, from, next) => {
         try {
           // get user info
           await store.dispatch('user/getInfo')
-
-          next()
+         
+          next({...to,replace:true})
         } catch (error) {
           // 删除令牌并转到登录页面重新登录
           await store.dispatch('user/resetToken')

@@ -22,15 +22,22 @@
     </div>
     <!-- 添加与批量添加按钮 -->
     <div style="margin-bottom: 20px">
+      <!-- 添加按钮 
+       判断是否按钮权限
+        v-show="buttons.indexOf('btn.User.add') != -1"
+      -->
       <el-button
         type="primary"
         style="margin-right: 10px"
         @click="showAddUser"
+        v-show="buttons.indexOf('btn.User.add') != -1"
       >添加</el-button>
+
       <el-popconfirm
         title="你确定要批量删除已选择的用户吗？"
         placement="right-start"
         @onConfirm="removeUsers"
+       v-show="buttons.indexOf('btn.User.remove') != -1"
       >
         <el-button slot="reference" type="danger" :disabled="selectedIds.length === 0">批量删除</el-button>
       </el-popconfirm>
@@ -90,6 +97,7 @@
               style="margin-right: 10px"
               title="更新"
               @click="showUpdateUser(scope.row)"
+                 v-show="buttons.indexOf('btn.User.update') != -1"
             />
           
             <!-- 
@@ -99,6 +107,7 @@
               title="你确定要删除当前用户吗？"
               placement="top-start"
               @onConfirm="removeUser(scope.row)"
+                 v-show="buttons.indexOf('btn.User.remove') != -1"
             >
               <el-button slot="reference" type="danger" icon="el-icon-delete" title="删除" />
             </el-popconfirm>
@@ -241,6 +250,12 @@ export default {
   // 组件加载完毕
   mounted() {
     this.getUserList()
+  },
+  computed:{
+    //  获取vuex里面保存按钮权限
+    buttons(){
+      return this.$store.state.user.buttons
+    }
   },
   methods: {
 

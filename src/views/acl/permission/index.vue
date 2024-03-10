@@ -154,7 +154,7 @@ export default {
       this.permission.level = row.level + 1
       this.permission.type = this.permission.level===4 ? 2 : 1
       this.permission.pname = row.name // 用于显示父名称, 但提交请求时是不需要的
-      // const result = this.$api.permission.reqPermissionSave()
+ 
     },
     // 修改当前菜单信息
     updatePermission(row){

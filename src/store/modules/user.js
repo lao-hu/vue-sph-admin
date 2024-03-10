@@ -3,7 +3,10 @@ import { login, logout, getInfo } from '@/api/user'
 // 获取token|设置token|删除token的函数
 import { getToken, setToken, removeToken } from '@/utils/auth'
 // 路由模块当中重置路由的方法
-import { resetRouter,asyncRoutes } from '@/router'
+import { resetRouter,asyncRoutes,anyRoutes,constantRoutes} from '@/router'
+
+// 引入路由配置文件
+import router from '@/router';
 
 // 箭头函数
 const getDefaultState = () => {
@@ -21,7 +24,9 @@ const getDefaultState = () => {
     //按钮权限的信息, 
     buttons: [],
     // 对比之后，【项目已经有点异步的路由，与服务器返回的标记信息进行对比，筛选出最终需要展示的 】
-    resultAsyncRoutes:[]
+    resultAsyncRoutes:[],
+    // 最终用户需要展示的路由
+    resultAllRoutes:[]
   }
 }
 
@@ -50,17 +55,30 @@ const mutations = {
   },
   // 最终计算的路由
   SET_RESULTASYNCROUTES:(state,data)=>{
+    // 保存当前用户的异步路由
     state.resultAsyncRoutes = data
+    // 保存合并生成新的路由
+    state.resultAllRoutes = constantRoutes.concat(state.resultAsyncRoutes,anyRoutes)
+    // 给动态的添加新的路由规则 
+    // 添加一条新路由规则。如果该路由规则有 name，并且已经存在一个与之相同的名字，则会覆盖它。
+    router.addRoutes(state.resultAllRoutes)
   }
 }
 
 // 定义一个函数 ，两个数组进行对比，对比出，当前用户显示哪些异步路由
 function computedAsyncRoutes(asRoutes,dataRoutes){
-    asRoutes.filter((params) => {
-      console.log(params);
+  // 过滤出当前用户需要展示的异步路由
+ return  asRoutes.filter((item) => {
+       // 判断数组中是否包含这个元素 
+       if(dataRoutes.indexOf(item.name) != -1 ){
+          
+           //遍历子路由
+           if(item.children && item.children.length != 0){
+              item.children = computedAsyncRoutes(item.children,dataRoutes)
+           }
+           return true
+       }
     })
-
-    
 }
 
 const actions = {
@@ -85,7 +103,6 @@ const actions = {
     const result = await getInfo(state.token)
     // 有些服务器状态码是200 或20000 
     if (result.code === 200 || result.code === 20000) {
-      console.log(result)
       const { data } = result
       commit('SET_USERINFO', data)
       commit('SET_RESULTASYNCROUTES',computedAsyncRoutes(asyncRoutes,data.routes))
