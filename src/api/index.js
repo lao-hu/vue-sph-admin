@@ -9,7 +9,7 @@ import * as spu from '@/api/product/spu'
 // 引入权限相关接口
 import * as user from '@/api/acl/user'
 import * as role from '@/api/acl/role'
-import * as premission from '@/api/acl/premission'
+import * as permission from '@/api/acl/permission'
 // 对外暴露
 export default {
   trademake,
@@ -18,5 +18,5 @@ export default {
   spu,
   user,
   role,
-  premission
+  permission
 }

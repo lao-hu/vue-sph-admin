@@ -3,7 +3,7 @@ import { login, logout, getInfo } from '@/api/user'
 // 获取token|设置token|删除token的函数
 import { getToken, setToken, removeToken } from '@/utils/auth'
 // 路由模块当中重置路由的方法
-import { resetRouter } from '@/router'
+import { resetRouter,asyncRoutes } from '@/router'
 
 // 箭头函数
 const getDefaultState = () => {
@@ -18,8 +18,10 @@ const getDefaultState = () => {
     routes: [],
     //角色信息
     roles: [],
-    //按钮权限的信息
+    //按钮权限的信息, 
     buttons: [],
+    // 对比之后，【项目已经有点异步的路由，与服务器返回的标记信息进行对比，筛选出最终需要展示的 】
+    resultAsyncRoutes:[]
   }
 }
 
@@ -32,12 +34,6 @@ const mutations = {
   },
   SET_TOKEN: (state, token) => {
     state.token = token
-  },
-  SET_NAME: (state, name) => {
-    state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
   },
   //存储用户信息
   SET_USERINFO: (state, userInfo) => {
@@ -52,6 +48,19 @@ const mutations = {
     //角色
     state.roles = userInfo.roles;
   },
+  // 最终计算的路由
+  SET_RESULTASYNCROUTES:(state,data)=>{
+    state.resultAsyncRoutes = data
+  }
+}
+
+// 定义一个函数 ，两个数组进行对比，对比出，当前用户显示哪些异步路由
+function computedAsyncRoutes(asRoutes,dataRoutes){
+    asRoutes.filter((params) => {
+      console.log(params);
+    })
+
+    
 }
 
 const actions = {
@@ -76,18 +85,10 @@ const actions = {
     const result = await getInfo(state.token)
     // 有些服务器状态码是200 或20000 
     if (result.code === 200 || result.code === 20000) {
-     
+      console.log(result)
       const { data } = result
-
-      if (!data) {
-        return Promise.reject(new Error('验证失败，请重新登录.'))
-      }
-
-      const { name, avatar } = data
-
-      commit('SET_NAME', name)
-      commit('SET_AVATAR', avatar)
       commit('SET_USERINFO', data)
+      commit('SET_RESULTASYNCROUTES',computedAsyncRoutes(asyncRoutes,data.routes))
     } else {
       return Promise.reject(new Error('faile'))
     }

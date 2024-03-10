@@ -11,7 +11,7 @@
        -->
       <el-tree
         ref="tree"
-        :data="PremissionAll"
+        :data="PermissionAll"
         :props="defaultProps"
         show-checkbox
         default-expand-all
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       loading: false, // 是否正在提交请求中
-      PremissionAll: [], // 获取全部菜单权限
+      PermissionAll: [], // 获取全部菜单权限
       defaultProps: {
         children: 'children', // 指定子树为节点对象的某个属性值
         label: 'name' // 指定节点标签为节点对象的某个属性值
@@ -45,13 +45,13 @@ export default {
   methods: {
     // 获取指定角色的权限列表
     async getPermissions() {
-      const result = await this.$api.premission.reqPreToAssign(
+      const result = await this.$api.permission.reqPreToAssign(
         this.$route.params.id
       )
       if (result.code === 20000) {
-        this.PremissionAll = result.data.children
+        this.PermissionAll = result.data.children
 
-        this.getSelectAuth(this.PremissionAll,this.selectAuth)
+        this.getSelectAuth(this.PermissionAll,this.selectAuth)
     
       }
   
@@ -89,7 +89,7 @@ export default {
       // 获取当前选中的权限
       var ids = this.$refs.tree.getCheckedKeys()
       var id =  this.$route.params.id
-      let result = await this.$api.premission.reqPreDoAssignAcl({
+      let result = await this.$api.permission.reqPreDoAssignAcl({
          permissionIdList:ids,
          roleId:id
       })

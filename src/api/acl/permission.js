@@ -11,7 +11,7 @@ const url = '/admin/acl/permission'
 
 */
 
-export const reqPremissionList = () => request({ url: `${url}`, method: 'get' })
+export const reqPermissionList = () => request({ url: `${url}`, method: 'get' })
 
 /* 
     保存菜单管理

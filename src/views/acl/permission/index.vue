@@ -50,7 +50,7 @@
             icon="el-icon-plus"
             title="添加"
             :disabled="scope.row.level === 4"
-            @click="addPremission(scope.row)"
+            @click="addPermission(scope.row)"
           />
           <el-button
             type="primary"
@@ -76,7 +76,7 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog :title="dialogTitle" :visible.sync="dialogPremissionVisible"  @close="resetData">
+    <el-dialog :title="dialogTitle" :visible.sync="dialogPermissionVisible"  @close="resetData">
       <el-form 
       ref="ruleForm"
       :model="permission" label-width="120px"
@@ -105,10 +105,10 @@
 
 <script>
 export default {
-  name: 'Premisson',
+  name: 'Permisson',
   data() {
     return {
-      dialogPremissionVisible:false , // 控制添加权限菜单的显示与隐藏 
+      dialogPermissionVisible:false , // 控制添加权限菜单的显示与隐藏 
       listLoading: true, // 是否显示列表加载的提示
       loading: false, // 是否正在提交请求中
       page: 1, // 当前页码
@@ -133,7 +133,7 @@ export default {
   },
   // 组件加载完毕
   mounted() {
-    this.getPremissionList()
+    this.getPermissionList()
   },
   computed:{
     dialogTitle(){
@@ -148,17 +148,17 @@ export default {
   },
   methods: {
     // 添加菜单,
-    async addPremission(row) {
-      this.dialogPremissionVisible = true
+    async addPermission(row) {
+      this.dialogPermissionVisible = true
       this.permission.pid = row.id
       this.permission.level = row.level + 1
       this.permission.type = this.permission.level===4 ? 2 : 1
       this.permission.pname = row.name // 用于显示父名称, 但提交请求时是不需要的
-      // const result = this.$api.premission.reqPremissionSave()
+      // const result = this.$api.permission.reqPermissionSave()
     },
     // 修改当前菜单信息
     updatePermission(row){
-      this.dialogPremissionVisible = true
+      this.dialogPermissionVisible = true
       this.permission.id = row.id
       this.permission.level = row.level
       this.permission.toCode = row.toCodec
@@ -168,16 +168,16 @@ export default {
     },
     // 删除当前
   async removePre(row){
-      let result = await this.$api.premission.reqPreRemove(row.id)
+      let result = await this.$api.permission.reqPreRemove(row.id)
       if(result.code === 20000){
         this.$message.success("删除成功")
-          this.getPremissionList()
+          this.getPermissionList()
       }
     },
 
     // 获取菜单分页列表
-    async getPremissionList() {
-      const result = await this.$api.premission.reqPremissionList()
+    async getPermissionList() {
+      const result = await this.$api.permission.reqPermissionList()
       if (result.code === 20000) {
         // 关闭loading 效果
         this.listLoading = false
@@ -194,18 +194,18 @@ export default {
         let msg
         if (valid) {
              if(this.permission.id){
-               result = await this.$api.premission.reqPermissionUpdate(perm)
+               result = await this.$api.permission.reqPermissionUpdate(perm)
                msg = "修改"
              }else{
-                result = await this.$api.premission.reqPermissionSave(perm)
+                result = await this.$api.permission.reqPermissionSave(perm)
                 msg = "添加"
              }
 
              if(result.code === 20000){
                 this.loading = false
-                this.dialogPremissionVisible = false
+                this.dialogPermissionVisible = false
                 this.$message.success(`${msg}成功`)
-                this.getPremissionList()
+                this.getPermissionList()
              }
         }else{
             this.$message.error("表单验证失败")
@@ -217,7 +217,7 @@ export default {
 
     // 关闭
     resetData(){
-      this.dialogPremissionVisible = false
+      this.dialogPermissionVisible = false
       this.permission = {
         level: 0,
         name: '',
