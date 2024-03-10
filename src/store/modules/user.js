@@ -5,6 +5,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 // 路由模块当中重置路由的方法
 import { resetRouter } from '@/router'
 
+// 箭头函数
 const getDefaultState = () => {
   return {
     //获取token
@@ -21,6 +22,7 @@ const getDefaultState = () => {
     buttons: [],
   }
 }
+
 
 const state = getDefaultState()
 
